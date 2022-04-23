@@ -83,42 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
           children: [
             cardWidget(),
-            Container(
-                height: 100,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.shade800.withOpacity(0.3),
-                        blurRadius: 5,
-                        spreadRadius: 1,
-                        offset: const Offset(0, 1),
-                      )
-                    ]),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    buttonWidget(
-                        CupertinoIcons.person_alt, "Transfert", primaryColor,
-                        () {
-                      print('Tapped Transfert');
-                    }),
-                    const VerticalDivider(),
-                    buttonWidget(
-                        CupertinoIcons.cart_fill, "Paiements", Colors.orange,
-                        () {
-                      print('Tapped Paiements');
-                    }),
-                    const VerticalDivider(),
-                    buttonWidget(CupertinoIcons.device_phone_portrait, "Crédit",
-                        Colors.lightBlueAccent, () {
-                      print('Tapped Crédit');
-                    })
-                  ],
-                )),
+            optionWidget(),
           ],
         )),
         SliverList(
@@ -138,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ]),
             child: ListView.builder(
+              physics: const ClampingScrollPhysics(),
               itemCount: listTransaction.length,
               itemBuilder: (context, index) {
                 Transaction transact=listTransaction[index];
@@ -192,6 +158,9 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.lightBlueAccent,
+                image: const DecorationImage(
+                    image: AssetImage('assets/images/bg.png'),
+                    fit: BoxFit.cover),
                 borderRadius: BorderRadius.circular(20)),
             margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
             child: Center(
@@ -220,7 +189,51 @@ class _MyHomePageState extends State<MyHomePage> {
           )),
     );
   }
+  optionWidget(){
+    return
+      Stack(
+        children: [
+          SizedBox(child: Container(color:primaryColor), height: 50),
+          Container(
+              height: 100,
+              margin:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade800.withOpacity(0.3),
+                      blurRadius: 5,
+                      spreadRadius: 1,
+                      offset: const Offset(0, 1),
+                    )
+                  ]),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  buttonWidget(
+                      CupertinoIcons.person_alt, "Transfert", primaryColor,
+                          () {
+                        print('Tapped Transfert');
+                      }),
+                  const VerticalDivider(),
+                  buttonWidget(
+                      CupertinoIcons.cart_fill, "Paiements", Colors.orange,
+                          () {
+                        print('Tapped Paiements');
+                      }),
+                  const VerticalDivider(),
+                  buttonWidget(CupertinoIcons.device_phone_portrait, "Crédit",
+                      Colors.lightBlueAccent, () {
+                        print('Tapped Crédit');
+                      })
+                ],
+              )),
 
+        ],
+      );
+  }
   buttonWidget(IconData icon, String text, Color color, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
