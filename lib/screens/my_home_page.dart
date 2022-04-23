@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterclonewave/models/transaction.dart';
+import 'package:flutterclonewave/screens/settings_page.dart';
 import 'package:flutterclonewave/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,12 +15,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool isVisible = false;
-  List<Transaction> listTransaction=[
-    Transaction(type: "Retrait", date: DateTime.now().toString(), montant: -1000),
+  List<Transaction> listTransaction = [
+    Transaction(
+        type: "Retrait", date: DateTime.now().toString(), montant: -1000),
     Transaction(type: "Dépot", date: DateTime.now().toString(), montant: 10000),
     Transaction(type: "Dépot", date: DateTime.now().toString(), montant: 10000),
-    Transaction(type: "Retrait", date: DateTime.now().toString(), montant: -10000),
-    Transaction(type: "Retrait", date: DateTime.now().toString(), montant: -10000),
+    Transaction(
+        type: "Retrait", date: DateTime.now().toString(), montant: -10000),
+    Transaction(
+        type: "Retrait", date: DateTime.now().toString(), montant: -10000),
   ];
 
   @override
@@ -75,7 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
           leading: IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              print('Menu button');
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const SettingsPage();
+              }));
             },
           ),
         ),
@@ -89,8 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
         SliverList(
             delegate: SliverChildListDelegate([
           Container(
-            margin:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -106,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
               physics: const ClampingScrollPhysics(),
               itemCount: listTransaction.length,
               itemBuilder: (context, index) {
-                Transaction transact=listTransaction[index];
+                Transaction transact = listTransaction[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 10),
@@ -139,7 +144,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               shrinkWrap: true,
-
             ),
           )
         ]))
@@ -189,51 +193,48 @@ class _MyHomePageState extends State<MyHomePage> {
           )),
     );
   }
-  optionWidget(){
-    return
-      Stack(
-        children: [
-          SizedBox(child: Container(color:primaryColor), height: 50),
-          Container(
-              height: 100,
-              margin:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade800.withOpacity(0.3),
-                      blurRadius: 5,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 1),
-                    )
-                  ]),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  buttonWidget(
-                      CupertinoIcons.person_alt, "Transfert", primaryColor,
-                          () {
-                        print('Tapped Transfert');
-                      }),
-                  const VerticalDivider(),
-                  buttonWidget(
-                      CupertinoIcons.cart_fill, "Paiements", Colors.orange,
-                          () {
-                        print('Tapped Paiements');
-                      }),
-                  const VerticalDivider(),
-                  buttonWidget(CupertinoIcons.device_phone_portrait, "Crédit",
-                      Colors.lightBlueAccent, () {
-                        print('Tapped Crédit');
-                      })
-                ],
-              )),
 
-        ],
-      );
+  optionWidget() {
+    return Stack(
+      children: [
+        SizedBox(child: Container(color: primaryColor), height: 50),
+        Container(
+            height: 100,
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade800.withOpacity(0.3),
+                    blurRadius: 5,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 1),
+                  )
+                ]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buttonWidget(
+                    CupertinoIcons.person_alt, "Transfert", primaryColor, () {
+                  print('Tapped Transfert');
+                }),
+                const VerticalDivider(),
+                buttonWidget(
+                    CupertinoIcons.cart_fill, "Paiements", Colors.orange, () {
+                  print('Tapped Paiements');
+                }),
+                const VerticalDivider(),
+                buttonWidget(CupertinoIcons.device_phone_portrait, "Crédit",
+                    Colors.lightBlueAccent, () {
+                  print('Tapped Crédit');
+                })
+              ],
+            )),
+      ],
+    );
   }
+
   buttonWidget(IconData icon, String text, Color color, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
