@@ -1,16 +1,17 @@
 # flutterclonewave
 
-A new Flutter project.
+Questions de cours pour évaluation
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1-Quel est le language utilisé pour faire du développement avec Flutter?
+        Dart 1pt
+2-Quel est le widget principalement utilisé pour avoir le corps
+d’une application mobile
+        Scaffold 1pt
+3-Comment s’appelle le fichier de configuration sur un projet flutter?
+    pubspec.yaml 2pt
+4-Sur quelles plateformes les applications faites avec Flutter
+peuvent-elles être déployée?
+        Android, IOS, Web, Desktop 2pt
+5-Quel est le nom du répertoire dans
+lequel on retrouve tous les fichiers .dart?
+    lib 1pt
