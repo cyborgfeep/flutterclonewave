@@ -43,15 +43,15 @@ class _ScanPageState extends State<ScanPage> {
         controller: _pageController,
 
         children: [
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             //color: Colors.black.withOpacity(0.4),
-            padding: const EdgeInsets.symmetric(vertical: 30),
+            //padding: const EdgeInsets.symmetric(vertical: 30),
             child: Stack(children: <Widget>[
-              CameraPreview(
+              AspectRatio(aspectRatio: MediaQuery.of(context).size.width/MediaQuery.of(context).size.height,child: CameraPreview(
                 _controller,
-              ),
+              ),),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
