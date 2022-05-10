@@ -41,7 +41,6 @@ class _ScanPageState extends State<ScanPage> {
         body: Stack(children: <Widget>[
       PageView(
         controller: _pageController,
-
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height,
@@ -49,9 +48,13 @@ class _ScanPageState extends State<ScanPage> {
             //color: Colors.black.withOpacity(0.4),
             //padding: const EdgeInsets.symmetric(vertical: 30),
             child: Stack(children: <Widget>[
-              AspectRatio(aspectRatio: MediaQuery.of(context).size.width/MediaQuery.of(context).size.height,child: CameraPreview(
-                _controller,
-              ),),
+              AspectRatio(
+                aspectRatio: MediaQuery.of(context).size.width /
+                    MediaQuery.of(context).size.height,
+                child: CameraPreview(
+                  _controller,
+                ),
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -128,10 +131,10 @@ class _ScanPageState extends State<ScanPage> {
           ))
     ]));
   }
+
   cardWidget() {
     return GestureDetector(
-      onTap: () {
-      },
+      onTap: () {},
       child: Container(
           height: 220,
           color: primaryColor,
@@ -151,7 +154,7 @@ class _ScanPageState extends State<ScanPage> {
                     width: 130,
                     height: 145,
                     padding:
-                    const EdgeInsets.only(left: 15, right: 15, top: 10),
+                        const EdgeInsets.only(left: 15, right: 15, top: 10),
                     child: Column(
                       children: [
                         Image.asset("assets/images/qr.png"),
