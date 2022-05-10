@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterclonewave/main.dart';
-import 'package:flutterclonewave/utils/constants.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class ScanPage extends StatefulWidget {
@@ -41,43 +40,62 @@ class _ScanPageState extends State<ScanPage> {
         body: Stack(children: <Widget>[
       PageView(
         controller: _pageController,
-
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            //color: Colors.black.withOpacity(0.4),
-            //padding: const EdgeInsets.symmetric(vertical: 30),
             child: Stack(children: <Widget>[
-              AspectRatio(aspectRatio: MediaQuery.of(context).size.width/MediaQuery.of(context).size.height,child: CameraPreview(
-                _controller,
-              ),),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.close),
-                        color: Colors.white,
+              AspectRatio(
+                aspectRatio: MediaQuery.of(context).size.width /
+                    MediaQuery.of(context).size.height,
+                child: CameraPreview(
+                  _controller,
+                ),
+              ),
+              ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.6), BlendMode.srcOut),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.black,
+                          backgroundBlendMode: BlendMode
+                              .dstOut), // This one will handle background + difference out
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        margin:
+                            const EdgeInsets.only(left: 30, right: 30, top: 20),
+                        height: 300,
+                        width: 400,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.flash_on),
-                        color: Colors.white,
-                      )
-                    ],
+                    ),
+                  ],
+                ),
+              ), //fond noir et trou
+              Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(
+                    height: 150,
                   ),
                   Column(
                     children: [
                       Container(
+                        margin: const EdgeInsets.only(
+                            left: 30, right: 30, top: 100),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(30),
                             color: Colors.transparent,
-                            border: Border.all(color: Colors.white, width: 1)),
-                        width: 300,
+                            border: Border.all(color: Colors.black, width: 1)),
+                        width: 400,
                         height: 300,
                       ),
                       const SizedBox(height: 20),
@@ -91,50 +109,88 @@ class _ScanPageState extends State<ScanPage> {
                     height: 30,
                   )
                 ],
-              )
+              ) //scanner et text
             ]),
-          ),
+          ), //page 1 camera
           Container(
             color: Colors.white,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: cardWidget(),
-          )
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: RotatedBox(quarterTurns: 1, child: cardWidget()),
+            ), //rotate pour retourner la carte
+          ) //page 2 carte
         ],
-      ),
+      ), //les pages
       Container(
           alignment: Alignment.bottomCenter,
           margin: const EdgeInsets.symmetric(vertical: 20),
-          child: ToggleSwitch(
-            initialLabelIndex: numPage,
-            minWidth: 150,
-            cornerRadius: 35,
-            activeFgColor: numPage == 0 ? Colors.white : Colors.black,
-            inactiveFgColor: Colors.white,
-            activeBgColor:
-                numPage == 0 ? const [Colors.grey] : const [Colors.white],
-            inactiveBgColor: numPage == 0 ? Colors.black : Colors.grey,
-            labels: const ["Scanner un code", "Ma carte"],
-            totalSwitches: 2,
-            radiusStyle: true,
-            onToggle: (index) {
-              setState(() {
-                numPage = index!;
-                _pageController.animateToPage(index,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut);
-              });
-            },
-          ))
+          child: Container(
+            height: 60,
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: numPage == 0 ? Colors.black : Colors.grey,
+              borderRadius: const BorderRadius.all(Radius.circular(35)),
+            ),
+            child: ToggleSwitch(
+              initialLabelIndex: numPage,
+              minWidth: 150,
+              cornerRadius: 35,
+              activeFgColor: numPage == 0 ? Colors.white : Colors.black,
+              inactiveFgColor: numPage == 0 ? Colors.white : Colors.black,
+              activeBgColor:
+                  numPage == 0 ? const [Colors.grey] : const [Colors.white],
+              inactiveBgColor: numPage == 0 ? Colors.black : Colors.grey,
+              labels: const ["Scanner un code", "Ma carte"],
+              totalSwitches: 2,
+              radiusStyle: true,
+              onToggle: (index) {
+                setState(() {
+                  numPage = index!;
+                  _pageController.animateToPage(index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
+                });
+              },
+            ),
+          )), //switch
+      Container(
+        alignment: Alignment.topCenter,
+        padding: const EdgeInsets.only(top: 60),
+        child: Container(
+          height: 50,
+          color: Colors.transparent,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(Icons.close),
+                color: numPage == 0 ? Colors.white : Colors.black,
+              ),
+              if (numPage == 0)
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.flashlight_on),
+                  color: Colors.white,
+                )
+            ],
+          ),
+        ),
+      ) //button retour et Flashlight
     ]));
   }
+
   cardWidget() {
     return GestureDetector(
-      onTap: () {
-      },
+      onTap: () {},
       child: Container(
-          height: 220,
-          color: primaryColor,
+          height: 200,
+          width: 200,
+          color: Colors.white,
+          padding:
+              const EdgeInsets.only(bottom: 30, top: 30, left: 50, right: 50),
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.lightBlueAccent,
@@ -148,25 +204,16 @@ class _ScanPageState extends State<ScanPage> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15)),
-                    width: 130,
-                    height: 145,
-                    padding:
-                    const EdgeInsets.only(left: 15, right: 15, top: 10),
+                    width: 200,
+                    height: 200,
+                    padding: const EdgeInsets.only(
+                        left: 15, right: 15, top: 10, bottom: 10),
                     child: Column(
                       children: [
                         Image.asset("assets/images/qr.png"),
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(Icons.photo_camera),
-                            SizedBox(width: 5),
-                            Text("Scanner")
-                          ],
-                        )
                       ],
                     ))),
           )),
     );
-  }
+  } //carte sans scanner
 }
