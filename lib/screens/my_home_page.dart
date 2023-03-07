@@ -17,146 +17,162 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool isVisible = false;
-  final f =  DateFormat('dd MMM yyyy à hh:mm');
+  final f = DateFormat('dd MMM yyyy à hh:mm');
 
   List<Transaction> listTransaction = [];
+
   @override
   void initState() {
     super.initState();
     listTransaction.addAll([
       Transaction(
-          type: "Retrait", date: f.format(DateTime.now().toLocal()), montant: -1000),
-      Transaction(type: "Dépot", date: f.format(DateTime.now().toLocal()), montant: 10000),
-      Transaction(type: "Dépot", date: f.format(DateTime.now().toLocal()), montant: 10000),
+          type: "Retrait",
+          date: f.format(DateTime.now().toLocal()),
+          montant: -1000),
       Transaction(
-          type: "Retrait", date: f.format(DateTime.now().toLocal()), montant: -10000),
+          type: "Dépot",
+          date: f.format(DateTime.now().toLocal()),
+          montant: 10000),
       Transaction(
-          type: "Retrait", date: f.format(DateTime.now().toLocal()), montant: -10000),
+          type: "Dépot",
+          date: f.format(DateTime.now().toLocal()),
+          montant: 10000),
+      Transaction(
+          type: "Retrait",
+          date: f.format(DateTime.now().toLocal()),
+          montant: -10000),
+      Transaction(
+          type: "Retrait",
+          date: f.format(DateTime.now().toLocal()),
+          montant: -10000),
     ]);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-        body: CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          expandedHeight: 90,
-          pinned: true,
-          floating: true,
-          backgroundColor: primaryColor,
-          flexibleSpace: FlexibleSpaceBar(
-              title: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Flexible(child: RichText(maxLines: 1,
-                  text: TextSpan(
-                    text: isVisible ? "1.000.000" : "•••••••",
-
-                    style: GoogleFonts.inter(
-                        fontSize: 25, fontWeight: FontWeight.bold),
-                    children: [
-                      TextSpan(
-                        text: isVisible ? "F" : "",
-                        style: GoogleFonts.inter(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                )),
-                IconButton(
-                  alignment: Alignment.bottomCenter,
-                  onPressed: () {
-                    setState(() {
-                      isVisible = !isVisible;
-                    });
-                  },
-                  icon: Icon(
-                    !isVisible
-                        ? Icons.visibility_rounded
-                        : Icons.visibility_off_rounded,
-                    size: 18,
-                    color: Colors.grey.shade400,
-                  ),
-                )
-              ],
-            ),
-            margin: const EdgeInsets.only(right: 20),
-          )),
-          leadingWidth: 50,
-          leading: IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const SettingsPage();
-              }));
-            },
-          ),
+        body: Stack(
+      children: [
+        Container(color: primaryColor),
+        Container(
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+          margin: const EdgeInsets.only(top: 250),
         ),
-        SliverToBoxAdapter(
-            child: Column(
-          children: [
-            cardWidget(),
-            optionWidget(),
-          ],
-        )),
-        SliverList(
-            delegate: SliverChildListDelegate([
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade800.withOpacity(0.3),
-                    blurRadius: 5,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 1),
-                  )
-                ]),
-            child: ListView.builder(
-              physics: const ClampingScrollPhysics(),
-              itemCount: listTransaction.length,
-              itemBuilder: (context, index) {
-                Transaction transact = listTransaction[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+        CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              expandedHeight: 90,
+              pinned: true,
+              floating: true,
+              backgroundColor: Colors.transparent,
+              flexibleSpace: FlexibleSpaceBar(
+                  title: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Flexible(
+                        child: RichText(
+                      maxLines: 1,
+                      text: TextSpan(
+                        text: isVisible ? "1.000.000" : "•••••••",
+                        style: GoogleFonts.inter(
+                            fontSize: 25, fontWeight: FontWeight.bold),
                         children: [
-                          Text(transact.type,
-                              style: GoogleFonts.inter(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: primaryColor)),
-                          Text(transact.date,
-                              style: GoogleFonts.inter(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey)),
+                          TextSpan(
+                            text: isVisible ? "F" : "",
+                            style: GoogleFonts.inter(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
-                      Text("${transact.montant}F",
-                          style: GoogleFonts.inter(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: primaryColor)),
-                    ],
-                  ),
-                );
-              },
-              shrinkWrap: true,
+                    )),
+                    IconButton(
+                      alignment: Alignment.bottomCenter,
+                      onPressed: () {
+                        setState(() {
+                          isVisible = !isVisible;
+                        });
+                      },
+                      icon: Icon(
+                        !isVisible
+                            ? Icons.visibility_rounded
+                            : Icons.visibility_off_rounded,
+                        size: 18,
+                        color: Colors.grey.shade400,
+                      ),
+                    )
+                  ],
+                ),
+                margin: const EdgeInsets.only(right: 20),
+              )),
+              leadingWidth: 50,
+              leading: IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const SettingsPage();
+                  }));
+                },
+              ),
             ),
-          )
-        ]))
+            SliverToBoxAdapter(
+                child: Column(
+              children: [
+                cardWidget(),
+                optionWidget(),
+              ],
+            )),
+            SliverList(
+                delegate: SliverChildListDelegate([
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                child: ListView.builder(
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: listTransaction.length,
+                  itemBuilder: (context, index) {
+                    Transaction transact = listTransaction[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(transact.type,
+                                  style: GoogleFonts.inter(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: primaryColor)),
+                              Text(transact.date,
+                                  style: GoogleFonts.inter(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey)),
+                            ],
+                          ),
+                          Text("${transact.montant}F",
+                              style: GoogleFonts.inter(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: primaryColor)),
+                        ],
+                      ),
+                    );
+                  },
+                  shrinkWrap: true,
+                ),
+              )
+            ]))
+          ],
+        )
       ],
     ));
   }
@@ -170,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       child: Container(
           height: 220,
-          color: primaryColor,
+          color: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.lightBlueAccent,
@@ -178,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     image: AssetImage('assets/images/bg.png'),
                     fit: BoxFit.cover),
                 borderRadius: BorderRadius.circular(20)),
-            margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
             child: Center(
                 child: Container(
                     decoration: BoxDecoration(
@@ -207,44 +223,35 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   optionWidget() {
-    return Stack(
-      children: [
-        SizedBox(child: Container(color: primaryColor), height: 50),
-        Container(
-            height: 100,
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade800.withOpacity(0.3),
-                    blurRadius: 5,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 1),
-                  )
-                ]),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buttonWidget(
-                    CupertinoIcons.person_alt, "Transfert", primaryColor, () {
-                  print('Tapped Transfert');
-                }),
-                const VerticalDivider(),
-                buttonWidget(
-                    CupertinoIcons.cart_fill, "Paiements", Colors.orange, () {
-                  print('Tapped Paiements');
-                }),
-                const VerticalDivider(),
-                buttonWidget(CupertinoIcons.device_phone_portrait, "Crédit",
-                    Colors.lightBlueAccent, () {
-                  print('Tapped Crédit');
-                })
-              ],
-            )),
-      ],
-    );
+    return Column(children: [
+      Container(
+        height: 100,
+        margin: const EdgeInsets.only(left: 16,right: 16, bottom: 10),
+        child: GridView.count(crossAxisCount: 4, shrinkWrap: true, children: [
+          buttonWidget(CupertinoIcons.person_alt, "Transfert", primaryColor,
+              () {
+            print('Tapped Transfert');
+          }),
+          buttonWidget(CupertinoIcons.cart_fill, "Paiements", Colors.orange,
+              () {
+            print('Tapped Paiements');
+          }),
+          buttonWidget(CupertinoIcons.device_phone_portrait, "Crédit",
+              Colors.lightBlueAccent, () {
+            print('Tapped Crédit');
+          }),
+          buttonWidget(Icons.account_balance_rounded, "Bank",
+              Colors.redAccent, () {
+            print('Tapped Bank');
+          })
+        ]),
+      ),
+      Container(
+        height: 5,
+        margin: const EdgeInsets.only(top: 20),
+        color: Colors.grey.withOpacity(0.3),
+      )
+    ]);
   }
 
   buttonWidget(IconData icon, String text, Color color, VoidCallback onTap) {
@@ -253,16 +260,23 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            color: color,
-            size: 30,
+          Container(
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(25)
+            ),
+            padding: EdgeInsets.all(10),
+            child: Icon(
+              icon,
+              color: color,
+              size: 30,
+            ),
           ),
           const SizedBox(height: 10),
           Text(
             text,
             style: GoogleFonts.inter(
-                fontSize: 16, color: color, fontWeight: FontWeight.bold),
+                fontSize: 13, color: Colors.black, fontWeight: FontWeight.w600),
           )
         ],
       ),

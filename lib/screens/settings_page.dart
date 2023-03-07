@@ -12,7 +12,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey.shade100,
+        backgroundColor: Colors.grey.shade200,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -26,54 +26,6 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         body: SafeArea(
             child: CustomScrollView(slivers: [
-          SliverToBoxAdapter(
-            child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Approvisionner son compte',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
-                      ),
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 16),
-                      child: ListView(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            child: Row(
-                              children: const [
-                                Icon(
-                                  Icons.account_balance,
-                                  size: 30,
-                                ),
-                                SizedBox(width: 10),
-                                Flexible(child: Text(
-                                  "Lier votre banque",
-                                  style: TextStyle(fontSize: 16),
-                                ))
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )),
-          ),
           SliverToBoxAdapter(
             child: Container(
                 padding:
@@ -183,6 +135,23 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ],
                                 ),
                               ),
+
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                child: Row(
+                                  children: const [
+                                    Icon(
+                                      CupertinoIcons.square_favorites_fill,
+                                      size: 30,
+                                    ),
+                                    SizedBox(width: 16),
+                                    Flexible(child: Text(
+                                      "Vérifiez votre plafond",
+                                      style: TextStyle(fontSize: 16),
+                                    ))
+                                  ],
+                                ),
+                              ),
                               Container(
                                 padding: const EdgeInsets.symmetric(vertical: 16),
                                 child: Row(
@@ -194,22 +163,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                     SizedBox(width: 16),
                                     Flexible(child: Text(
                                       "Trouvez les agents à proximité",
-                                      style: TextStyle(fontSize: 16),
-                                    ))
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(vertical: 16),
-                                child: Row(
-                                  children: const [
-                                    Icon(
-                                      CupertinoIcons.square_list_fill,
-                                      size: 30,
-                                    ),
-                                    SizedBox(width: 16),
-                                    Flexible(child: Text(
-                                      "Vérifiez votre plafond",
                                       style: TextStyle(fontSize: 16),
                                     ))
                                   ],
@@ -252,17 +205,17 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: Row(
                     children:  [
                       const Icon(
-                        Icons.login_rounded,
+                        Icons.logout_outlined,
                         size: 30,
                       ),
                       const SizedBox(width: 16),
-                      Flexible(child: Column(
+                      Flexible(child: Row(
                         children: const [
                           Text(
                             "Se déconnecter",
                             style: TextStyle(fontSize: 16),
                           ),
-                          SizedBox(height: 3),
+                          SizedBox(width: 3),
                           Text(
                             "(77 777 77 77)",
                             style: TextStyle(fontSize: 16,color: Colors.grey),
